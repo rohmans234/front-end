@@ -1,7 +1,7 @@
 export default function Ibed(){
     return <>
     <button className="">
-        Jawa
+        Sunda
     </button>
     </>
 }
