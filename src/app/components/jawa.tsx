@@ -1,4 +1,4 @@
-export default function Ibed(){
+export default function Jawa(){
     return <>
     <button className="">
         Jawa
