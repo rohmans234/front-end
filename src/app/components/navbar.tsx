@@ -7,7 +7,7 @@ import Logout from "./logout";
 export default async function Navbar() {
   const data = await auth();
   return (
-    <div className="sticky top-0 z-10 bg-white shadow-sm">
+    <div className="sticky top-0 z-10 bg-slate-300 shadow-sm">
       <Wrapper>
         <div className="h-[60px] flex items-center justify-between">
           <Link href={"/"} className="flex items-center gap-2">
