@@ -4,6 +4,7 @@ import axios from "@/app/lib/axios";
 import { Field, Form, Formik, FormikHelpers, FormikProps } from "formik";
 import { toast } from "react-toastify";
 import * as yup from "yup";
+import { AxiosError } from "axios";
 
 const RegisterSchema = yup.object().shape({
   name: yup.string().required("Name is required"),
@@ -30,24 +31,25 @@ export default function FormRegister(){
     password:"",
   };
 
-  const onRegister = async(value: IRegisterForm,action: FormikHelpers<IRegisterForm>) => {
-    try{
-      console.log("Registering user with:", value);
-      await axios.post("/users/register", value);
-      toast.success("register sucsesfully")
-      action.resetForm();
-
-    } catch (err: any) {
-      if (err.response && err.response.data) {
-        alert(err.response.data.message || "Registration failed.");
-      } else {
-        alert("Something went wrong.");
-      }
-      console.error(err);
-      toast.error("register failed")
+  const onRegister = async (
+  value: IRegisterForm,
+  action: FormikHelpers<IRegisterForm>
+) => {
+  try {
+    console.log("Registering user with:", value);
+    await axios.post("/users/register", value);
+    toast.success("register sucsesfully");
+    action.resetForm();
+  } catch (err: unknown) { // Change 'any' to 'unknown'
+    if (err instanceof AxiosError && err.response && err.response.data) { // Type narrowing
+      alert(err.response.data.message || "Registration failed.");
+    } else {
+      alert("Something went wrong.");
     }
-
-  };
+    console.error(err);
+    toast.error("register failed");
+  }
+};
 
   return(
     <div>

@@ -1,24 +1,24 @@
+// src/app/lib/auth.ts
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 
 export const { auth, handlers, signIn, signOut } = NextAuth({
   providers: [
     Credentials({
-      async authorize(credentials, req) {
+      async authorize(credentials, _req) { // Add underscore to 'req'
         const user = {
           objectId: credentials?.objectId as string,
           name: credentials?.name as string,
           email: credentials?.email as string,
           userToken: credentials?.userToken as string,
         };
-    
+
         // Validasi minimal (opsional)
         if (!user.objectId || !user.email || !user.userToken) return null;
-    
+
         return user;
-      }
+      },
     }),
-    
   ],
   pages: {
     signIn: "/login",
