@@ -5,7 +5,7 @@ import Credentials from "next-auth/providers/credentials";
 export const { auth, handlers, signIn, signOut } = NextAuth({
   providers: [
     Credentials({
-      async authorize(credentials, _req) { // Add underscore to 'req'
+      async authorize(credentials, _req) { // eslint-disable-line @typescript-eslint/no-unused-vars
         const user = {
           objectId: credentials?.objectId as string,
           name: credentials?.name as string,
